@@ -14,6 +14,40 @@ Coffee Quality Database, built from reviews published by the Coffee Quality Inst
 
 The data file is **not included** in this repository. Download `arabica_data_cleaned.csv` from the [original GitHub repository](https://github.com/jldbc/coffee-quality-database) or from the [Kaggle copy](https://www.kaggle.com/datasets/volpatto/coffee-quality-database-from-cqi), and place it in the same folder as the notebook.
 
+### Dataset at a glance
+
+- 1 row = 1 coffee lot; 1,311 rows and 44 columns in the raw file.
+- The notebook keeps 25 columns and 1,310 rows after dropping the never-graded lot (`Total.Cup.Points = 0`).
+- The families below are an informal reading aid, not an official CQI schema.
+
+```mermaid
+flowchart TD
+    A["1 row = 1 coffee lot<br/>1,311 rows · 44 columns"] --> B
+
+    subgraph B["Column families (informal)"]
+        direction LR
+        subgraph ctx["Context"]
+            O["Origin<br/>Country.of.Origin, Altitude fields"]
+            P["Producer / lot<br/>Farm.Name, Mill, Producer, Number.of.Bags"]
+            C["Cultivation<br/>Variety, Processing.Method, Color, Harvest.Year"]
+        end
+        subgraph qual["Quality"]
+            D["Cupping scores<br/>7 sensory + 3 consistency + Total.Cup.Points"]
+            Q["Physical quality<br/>Moisture, defects, Quakers"]
+        end
+        subgraph adm["Administrative"]
+            F["Certification / grading<br/>Certification.*, Grading.Date, Owner, IDs"]
+        end
+    end
+
+    classDef context fill:#E1F5EE,stroke:#0F6E56,color:#085041
+    classDef quality fill:#EEEDFE,stroke:#534AB7,color:#3C3489
+    classDef admin fill:#F1EFE8,stroke:#5F5E5A,color:#444441
+    class O,P,C context
+    class D,Q quality
+    class F admin
+```
+
 ## What the notebook does
 
 1. **Presentation**: selecting the columns relevant to the research question.
